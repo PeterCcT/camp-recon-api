@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { User } from "./user.model";
 
-export interface INewUserCategorie{
+export interface INewUserCategorie {
     name: string
 }
 
@@ -9,7 +9,7 @@ export interface INewUserCategorie{
 export class Categorie {
     @PrimaryColumn({ generated: 'uuid', type: 'uuid', update: false })
     public id: string
-    @Column()
+    @Column({ nullable: false, unique: true })
     public name: string
     @OneToMany(() => User, user => user.categorie)
     public users: User[]

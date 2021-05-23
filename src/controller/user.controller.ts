@@ -16,12 +16,54 @@ export class UserController {
         res.send(user)
     }
 
+    async getUser(req: Request, res: Response) {
+        const { id } = req.params
+
+        const { containsError, user, err } = await this.service.getOneUser(id);
+
+        if (containsError)
+            res.status(err.status).send(err.toJson())
+        else
+            res.send(user)
+    }
+
+    async getUsers(req: Request, res: Response) {
+        const { query } = req
+
+        const {
+            containsError,
+            users,
+            err
+        } = await this.service.getUsers(query)
+
+        if (containsError)
+            res.status(err.status).send(err.toJson())
+        else
+            res.send(users)
+
+    }
+
+    async getFavorites(req: Request, res: Response) {
+        const {
+            containsError,
+            users,
+            err
+        } = await this.service.getFavorites()
+
+        if (containsError)
+            res.status(err.status).send(err.toJson())
+        else
+            res.send(users)
+    }
+
     async login(req: Request, res: Response) {
         const { body } = req
 
-        const user = await this.service.login(body)
-
-        res.send(user)
+        const result = await this.service.login(body)
+        if (result.containsError) {
+            res.status(result.err.status).send(result.err.toJson())
+        } else {
+            res.send(result.user)
+        }
     }
-
 }
