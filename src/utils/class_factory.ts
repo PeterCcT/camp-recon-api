@@ -11,6 +11,7 @@ import { UserRepositorie } from "../repositories/user.repositorie";
 import { AchievementService } from "../services/achievement.service";
 import { AuthService } from "../services/auth.service";
 import { CategorieService } from "../services/categorie.service";
+import { GalleryImageService } from "../services/gallery.service";
 import { HashingService } from "../services/hashing.service";
 import { LinkService } from "../services/link.service";
 import { StateApiService } from "../services/state_api.service";
@@ -56,9 +57,14 @@ function getAchievementService() {
 function getLinkRepositorie(){
     return getCustomRepository(LinkRepositorie)
 }
+
 function getLinkService(){
     const linkRepositorie = getLinkRepositorie()
     return new LinkService(linkRepositorie)
+}
+
+function getGalleryImageService(){
+    return new GalleryImageService()
 }
 
 export function getUserService() {
@@ -66,12 +72,14 @@ export function getUserService() {
     const categorieService = getCategorieService()
     const linkService = getLinkService()
     const achievementService = getAchievementService();
+    const galleryImageService = getGalleryImageService()
     const hashingService = getHashingService()
     const authService = getAuthService()
     return new UserService(
         userRepositorie,
         categorieService,
         achievementService,
+        galleryImageService,
         linkService,
         hashingService,
         authService

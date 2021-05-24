@@ -23,7 +23,6 @@ export class StateApiService {
     }
     async getAllCitiesFromUf(uf: string) {
         try {
-            console.log(uf)
             const url = `${this.baseUrl}/estados/${uf}/municipios`
             const { data } = await axios.get(url)
             const cities = []

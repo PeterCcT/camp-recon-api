@@ -6,6 +6,7 @@ import { isArrayEmpty } from "../utils/validators";
 import { AchievementService } from "./achievement.service";
 import { AuthService } from "./auth.service";
 import { CategorieService } from "./categorie.service";
+import { GalleryImageService } from "./gallery.service";
 import { HashingService } from "./hashing.service";
 import { LinkService } from "./link.service";
 
@@ -49,6 +50,7 @@ export class UserService {
         userRepositorie: UserRepositorie,
         categorieService: CategorieService,
         achievementService: AchievementService,
+        galleryImageService: GalleryImageService,
         linkService: LinkService,
         hashingService: HashingService,
         authService: AuthService
@@ -56,6 +58,7 @@ export class UserService {
         this.respositorie = userRepositorie
         this.categorieService = categorieService
         this.achivementService = achievementService
+        this.galleryImageService = galleryImageService
         this.hashingService = hashingService
         this.authService = authService
         this.linkService = linkService
@@ -64,6 +67,7 @@ export class UserService {
     private respositorie: UserRepositorie
     private categorieService: CategorieService
     private achivementService: AchievementService
+    private galleryImageService: GalleryImageService
     private hashingService: HashingService
     private authService: AuthService
     private linkService: LinkService
@@ -150,7 +154,7 @@ export class UserService {
         const formattedUser = this.formatParcialUserData(user)
         formattedUser['links'] = user.links?.map(link => this.linkService.formatLink(link)) ?? []
         formattedUser['achievements'] = user.achievements?.map(achievement => this.achivementService.formatAchievement(achievement)) ?? []
-        formattedUser['imageGallery'] = []
+        formattedUser['imageGallery'] = user.galleryImages?.map(galleryImage => this.galleryImageService.formatGalleryImage(galleryImage)) ?? []
         return formattedUser
     }
 

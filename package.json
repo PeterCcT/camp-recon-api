@@ -7,6 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "postinstall": "./node_modules/typescript/bin/tsc --build",
+    "build": "./node_modules/typescript/bin/tsc --build",
     "typeorm": "./node_modules/typeorm/cli.js",
     "tsc": "./node_modules/typescript/bin/tsc",
     "start_dev_db": "./scripts/run_dev_db.sh"
