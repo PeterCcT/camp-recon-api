@@ -11,6 +11,6 @@ else
         -e POSTGRES_PASSWORD=${DBPASSWORD:-dev} \
         -e POSTGRES_USER=${DBUSER:-dev} \
         -p ${DBPORT:-5432}:5432 \
-        -v $pwd/src/datbase:/var/lib/postgresql/data \
+        -v $pwd/src/datbase/:/var/lib/postgresql/data \
     postgres    
 fi

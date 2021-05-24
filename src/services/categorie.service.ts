@@ -1,6 +1,7 @@
 import { FindOneOptions } from "typeorm"
 import { Categorie } from "../models/categorie.model"
 import { CategorieRepositorie } from "../repositories/categorie.repositorie"
+import { isArrayEmpty } from "../utils/validators"
 
 export class CategorieService {
     constructor(categorieRepositorie: CategorieRepositorie) {
@@ -25,20 +26,27 @@ export class CategorieService {
                 name: name
             }
         }
-        if (returnFields !== undefined && returnFields.length !== 0)
+        if (isArrayEmpty(returnFields))
             searchObject.select = returnFields
 
         const categorie = await this.repositorie.findOne(searchObject)
 
         return categorie!
+
+        // TODO: error validation
     }
 
     async getAllCategories() {
-        const data = []
-        const categories = await this.repositorie.find({ select: ['name'] })
-        for (const categorie of categories) {
-            data.push(categorie.name)
+        try{
+            const data = []
+            const categories = await this.repositorie.find({ select: ['name'] })
+            for (const categorie of categories) {
+                data.push(categorie.name)
+            }
+            return data
+        }catch(err){
+            console.log(err)
+            // TODO: error validation
         }
-        return data
     }
 }

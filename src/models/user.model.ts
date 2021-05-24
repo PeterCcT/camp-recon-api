@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 import { Categorie } from "./categorie.model";
 import { Achievement } from "./achievement.model";
 import { GalleryImage } from "./image_gallery.model";
+import { Link } from "./link.model";
 
 export interface INewUser {
     name: string
@@ -12,17 +13,28 @@ export interface INewUser {
     state: string
     city: string
     occupation: string
-    resume: string
+    description: string
     categorie: Categorie
+    links?: Link[]
     achievements?: Achievement[]
     galleryImages?: GalleryImage[]
 }
 
 export enum UserRelations {
-    categorie='categorie',
-    achievements='achievements',
-    galleryImages='galleryImages'
+    categorie = 'categorie',
+    achievements = 'achievements',
+    galleryImages = 'galleryImages',
+    links = 'links'
 }
+
+export const userFilterFields = [
+    'name',
+    'age',
+    'state',
+    'city',
+    'occupation',
+    'categorie'
+]
 
 @Entity()
 export class User {
@@ -45,9 +57,14 @@ export class User {
     @Column()
     public occupation: string
     @Column()
-    public resume: string
+    public description: string
+    @Column()
+    public avatar: string
     @ManyToOne(() => Categorie, categorie => categorie.users)
+    @JoinColumn({ name: 'categorie', referencedColumnName: 'name' })
     public categorie: Categorie
+    @OneToMany(() => Link, link => link.user)
+    public links: Link[]
     @OneToMany(() => Achievement, achievement => achievement.user, { nullable: true })
     public achievements: Achievement[]
     @OneToMany(() => GalleryImage, galleryImage => galleryImage.user, { nullable: true })
