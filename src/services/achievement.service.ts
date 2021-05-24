@@ -9,11 +9,21 @@ export class AchievementService {
 
     private repositorie: AchievementRepositorie
 
-    async createAchievements(achivements: Achievement[],user:User){
+    async createAchievements(achivements: Achievement[], user: User) {
+        // TODO: err validation
         for (const achivement of achivements) {
-                achivement.user = user
-                await this.repositorie.save(achivement)
+            achivement.user = user
+            await this.repositorie.save(achivement)
         }
     }
-    
+
+    formatAchievement(achievement: Achievement) {
+        return {
+            name: achievement.name,
+            description: achievement.description,
+            date: achievement.date,
+            imageUrl: achievement.imageUrl
+        }
+    }
+
 }

@@ -6,11 +6,14 @@ import { AuthMiddleware } from "../middlewares/auth.middleware";
 import { UserValidator } from "../middlewares/validators/user";
 import { AchievementRepositorie } from "../repositories/achievement.repositorie";
 import { CategorieRepositorie } from "../repositories/categorie.repositorie";
+import { LinkRepositorie } from "../repositories/link.repositorie";
 import { UserRepositorie } from "../repositories/user.repositorie";
 import { AchievementService } from "../services/achievement.service";
 import { AuthService } from "../services/auth.service";
 import { CategorieService } from "../services/categorie.service";
+import { GalleryImageService } from "../services/gallery.service";
 import { HashingService } from "../services/hashing.service";
+import { LinkService } from "../services/link.service";
 import { StateApiService } from "../services/state_api.service";
 import { UserService } from "../services/user.service";
 
@@ -50,16 +53,34 @@ function getAchievementService() {
     return new AchievementService(achievementRepositorie);
 }
 
+
+function getLinkRepositorie(){
+    return getCustomRepository(LinkRepositorie)
+}
+
+function getLinkService(){
+    const linkRepositorie = getLinkRepositorie()
+    return new LinkService(linkRepositorie)
+}
+
+function getGalleryImageService(){
+    return new GalleryImageService()
+}
+
 export function getUserService() {
     const userRepositorie = getUserRepositorie()
     const categorieService = getCategorieService()
+    const linkService = getLinkService()
     const achievementService = getAchievementService();
+    const galleryImageService = getGalleryImageService()
     const hashingService = getHashingService()
     const authService = getAuthService()
     return new UserService(
         userRepositorie,
         categorieService,
         achievementService,
+        galleryImageService,
+        linkService,
         hashingService,
         authService
     )

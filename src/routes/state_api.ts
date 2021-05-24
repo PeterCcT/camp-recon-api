@@ -10,7 +10,7 @@ statesRouter.get(
 )
 
 statesRouter.get(
-    '/:uf/cities',
+    '/ufs/:uf',
     (req, res) => stateApiController.getAllCitiesFromUf(req, res)
 )
 
