@@ -13,7 +13,10 @@ function getOrmConfigs() {
     }
     if (isProd) {
         Object.assign(dbConfig, {
-            'url': process.env.DATABASE_URL
+            'url': process.env.DATABASE_URL,
+            'ssl': {
+                'rejectUnauthorized': false
+            }
         })
     } else {
         Object.assign(dbConfig, {
