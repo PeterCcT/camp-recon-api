@@ -6,4 +6,8 @@ export class GalleryImageService {
             'image': galleryImage.url
         }
     }
+
+    sortGalleryImages(galleryImages: GalleryImage[]) {
+        return galleryImages.sort((a, b) => b.uploadDate.getDate() - a.uploadDate.getDate()).map(this.formatGalleryImage)
+    }
 }

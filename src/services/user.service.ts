@@ -121,9 +121,10 @@ export class UserService {
             params.where = whereParams
 
             return await this.respositorie.findOne(params)
+
         } catch (err) {
             console.log(err)
-            // TODO: data validation
+            return undefined
         }
     }
 
@@ -150,16 +151,20 @@ export class UserService {
 
 
     private formatFullUserData(user: User) {
-        // TODO: data validation
         const formattedUser = this.formatParcialUserData(user)
         formattedUser['links'] = user.links?.map(link => this.linkService.formatLink(link)) ?? []
-        formattedUser['achievements'] = user.achievements?.map(achievement => this.achivementService.formatAchievement(achievement)) ?? []
-        formattedUser['imageGallery'] = user.galleryImages?.map(galleryImage => this.galleryImageService.formatGalleryImage(galleryImage)) ?? []
+        formattedUser['achievements'] =  this.achivementService.sortAchivements(user.achievements) ?? []
+        formattedUser['imageGallery'] = this.galleryImageService.sortGalleryImages(user.galleryImages) ?? []
+
         return formattedUser
     }
 
-    async createUser(data: any) {
-        // TODO: error validation
+    async createUser(data: any): Promise<OneUserReturn> {
+        const result: OneUserReturn = {
+            containsError: false,
+            user: undefined,
+            err: undefined
+        }
         try {
             const userFormattedModel = await this.formatNewUserToModel(data)
             const userModel = this.respositorie.create(userFormattedModel)
@@ -173,11 +178,13 @@ export class UserService {
             if (!isArrayEmpty(user.links)) {
                 await this.linkService.createLinks(userModel.links, user)
             }
-            return this.formatParcialUserData(user)
+            result.user = this.formatParcialUserData(user)
+            return result
         }
         catch (err) {
-            console.log(err)
-            return err
+            result.containsError = true
+            result.err = new DefaultError(500, '...', 'Unexpected error', 'UnexpectedError')
+            return result
         }
     }
 

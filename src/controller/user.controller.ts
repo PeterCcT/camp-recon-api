@@ -11,9 +11,16 @@ export class UserController {
     async createUser(req: Request, res: Response) {
         const { body } = req
 
-        const user = await this.service.createUser(body)
+        const {
+            containsError,
+            user,
+            err
+        } = await this.service.createUser(body)
 
-        res.send(user)
+        if (containsError)
+            res.status(err.status).send(err.toJson())
+        else
+            res.send(user)
     }
 
     async getUser(req: Request, res: Response) {
