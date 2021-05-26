@@ -10,18 +10,21 @@ export class AchievementService {
     private repositorie: AchievementRepositorie
 
     async createAchievements(achivements: Achievement[], user: User) {
-        // TODO: err validation
         for (const achivement of achivements) {
             achivement.user = user
             await this.repositorie.save(achivement)
         }
     }
 
+    sortAchivements(achievements: Achievement[]) {
+        return achievements.sort((a, b) => b.date.getDate() - a.date.getDate()).map(this.formatAchievement)
+    }
+
     formatAchievement(achievement: Achievement) {
         return {
             name: achievement.name,
             description: achievement.description,
-            date: achievement.date,
+            date: achievement.date.toLocaleDateString(),
             imageUrl: achievement.imageUrl
         }
     }

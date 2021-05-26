@@ -6,13 +6,11 @@ const userController = getUserController()
 const userValidator = getUserValidator()
 const authMiddleware = getAuthMidlleware()
 
-if (process.env.IS_PROD != 'true') {
-    userRouter.post(
-        '/user',
-        (req, res, next) => userValidator.validateNewUser(req, res, next),
-        (req, res) => userController.createUser(req, res)
-    )
-}
+userRouter.post(
+    '/user',
+    (req, res, next) => userValidator.validateNewUser(req, res, next),
+    (req, res) => userController.createUser(req, res)
+)
 
 userRouter.get(
     '/user',
