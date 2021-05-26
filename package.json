@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "postinstall": "./node_modules/typescript/bin/tsc --build",
+    "start": "node dist/server.js",
     "build": "./node_modules/typescript/bin/tsc --build",
     "typeorm": "./node_modules/typeorm/cli.js",
     "tsc": "./node_modules/typescript/bin/tsc",
