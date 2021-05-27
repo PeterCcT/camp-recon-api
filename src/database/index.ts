@@ -1,8 +1,7 @@
-import { Connection, createConnection, getConnectionOptions } from 'typeorm'
-import { getOrmConfigs } from '../config/ormconfig'
+import { Connection, ConnectionOptions, createConnection } from 'typeorm'
+import * as dbConfig from '../../ormconfig'
 async function createDbConnection(): Promise<Connection> {
-    const dbConfigs = getOrmConfigs()
-    return createConnection(dbConfigs)
+    return createConnection(dbConfig as ConnectionOptions)
 }
 
 export { createDbConnection }
