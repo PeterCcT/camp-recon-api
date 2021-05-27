@@ -2,9 +2,7 @@ import { GalleryImage } from '../models/image_gallery.model'
 
 export class GalleryImageService {
     formatGalleryImage(galleryImage: GalleryImage) {
-        return {
-            'image': galleryImage.url
-        }
+        return galleryImage.url
     }
 
     sortGalleryImages(galleryImages: GalleryImage[]) {
