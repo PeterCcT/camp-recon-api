@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "postinstall": "./node_modules/typescript/bin/tsc --build",
+    "postinstall": "./node_modules/typescript/bin/tsc --build && ./node_modules/typeorm/cli.js migration:run",
     "start": "node dist/server.js",
     "build": "./node_modules/typescript/bin/tsc --build",
     "typeorm": "./node_modules/typeorm/cli.js",
