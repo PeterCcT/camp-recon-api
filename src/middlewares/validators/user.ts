@@ -61,7 +61,7 @@ export class UserValidator {
                 .of(
                     yup.object().shape({
                         name: yup.string().required(),
-                        description: yup.string().required(),
+                        description: yup.string().notRequired(),
                         date: yup.date().required(),
                         imageUrl: yup.string().min(1).notRequired()
                     })
