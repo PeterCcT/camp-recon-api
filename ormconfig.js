@@ -2,10 +2,10 @@ const isProd = process.env.IS_PROD == 'true'
 
 const dbConfig = {
     'type': 'postgres',
-    'migrations': isProd ? ['./dist/src/database/migrations/**.js'] : ['./src/database/migrations/**.ts'],
-    'entities': isProd ? ['./dist/src/models/**.js'] : ['./src/models/**.ts'],
+    'migrations': isProd ? ['./dist/database/migrations/**.js'] : ['./src/database/migrations/**.ts'],
+    'entities': isProd ? ['./dist/models/**.js'] : ['./src/models/**.ts'],
     'cli': {
-        'migrationsDir': !isProd ? './src/database/migrations/' : './dist/src/migrations/'
+        'migrationsDir': !isProd ? './src/database/migrations/' : './dist/migrations/'
     }
 }
 if (isProd) {
