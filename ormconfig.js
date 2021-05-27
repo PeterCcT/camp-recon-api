@@ -3,10 +3,10 @@ const isProd = process.env.IS_PROD == 'true'
 
 const dbConfig = {
     'type': 'postgres',
-    'migrations': isProd ? ['.src/database/migrations/**.js'] : ['./src/database/migrations/**.ts'],
-    'entities': isProd ? ['.src/models/**.js'] : ['./src/models/**.ts'],
+    'migrations': isProd ? ['./dist/src/database/migrations/**.js'] : ['./src/database/migrations/**.ts'],
+    'entities': isProd ? ['./dist/src/models/**.js'] : ['./src/models/**.ts'],
     'cli': {
-        'migrationsDir': !isProd ? './src/database/migrations/' : './src/migrations/'
+        'migrationsDir': !isProd ? './src/database/migrations/' : './dist/src/migrations/'
     }
 }
 if (isProd) {
@@ -25,4 +25,4 @@ if (isProd) {
     })
 }
 
-export = dbConfig
+module.exports = dbConfig
