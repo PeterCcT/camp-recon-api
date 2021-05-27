@@ -26,8 +26,7 @@ userRouter.get(
 
 userRouter.get(
     '/user/:id',
-    (req, res, next) => authMiddleware.checkToken(req, res, next),
-    (req, res) => userController.getUser(req, res),
+    (req, res) => userController.getUser(req, res)
 )
 
 
