@@ -14,7 +14,7 @@ export class Achievement {
     public id: string
     @Column()
     public name: string
-    @Column()
+    @Column({ nullable: true })
     public description: string
     @Column()
     public date: Date
