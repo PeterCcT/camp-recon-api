@@ -1,4 +1,3 @@
-
 const isProd = process.env.IS_PROD == 'true'
 
 const dbConfig = {
@@ -25,4 +24,4 @@ if (isProd) {
     })
 }
 
-module.exports = dbConfig
+module.exports =  dbConfig 
