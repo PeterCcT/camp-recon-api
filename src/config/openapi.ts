@@ -96,6 +96,9 @@ export const config: OAS3Definition = {
                     'age': {
                         'type': 'integer'
                     },
+                    'phone':{
+                        'type': 'string'
+                    },
                     'links': {
                         'type': 'array',
                         'items': {
