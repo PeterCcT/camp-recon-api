@@ -90,6 +90,12 @@ export const config: OAS3Definition = {
             'FullUserData': {
                 'type': 'object',
                 'properties': {
+                    'description': {
+                        'type': 'string'
+                    },
+                    'age': {
+                        'type': 'integer'
+                    },
                     'links': {
                         'type': 'array',
                         'items': {

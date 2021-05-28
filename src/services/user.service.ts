@@ -152,6 +152,8 @@ export class UserService {
 
     private formatFullUserData(user: User) {
         const formattedUser = this.formatParcialUserData(user)
+        formattedUser['description'] = user.description
+        formattedUser['age'] = user.age
         formattedUser['links'] = user.links?.map(link => this.linkService.formatLink(link)) ?? []
         formattedUser['achievements'] = this.achivementService.sortAchivements(user.achievements) ?? []
         formattedUser['imageGallery'] = this.galleryImageService.sortGalleryImages(user.galleryImages) ?? []
