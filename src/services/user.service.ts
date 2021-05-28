@@ -153,7 +153,7 @@ export class UserService {
     private formatFullUserData(user: User) {
         const formattedUser = this.formatParcialUserData(user)
         formattedUser['links'] = user.links?.map(link => this.linkService.formatLink(link)) ?? []
-        formattedUser['achievements'] =  this.achivementService.sortAchivements(user.achievements) ?? []
+        formattedUser['achievements'] = this.achivementService.sortAchivements(user.achievements) ?? []
         formattedUser['imageGallery'] = this.galleryImageService.sortGalleryImages(user.galleryImages) ?? []
 
         return formattedUser
@@ -360,8 +360,11 @@ export class UserService {
             err: undefined
         }
         try {
-            const users = await this.respositorie.find({ take: 4 })
-            result.users = users.map(user => this.formatParcialUserData(user))
+            const users = await this.respositorie.find({
+                take: 4,
+                relations: ['categorie']
+            })
+            result.users = users.map(user => this.formatParcialUserData(user, false))
             return result
         } catch (err) {
             console.log(err)
