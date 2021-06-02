@@ -2,15 +2,19 @@ import { Router } from 'express'
 import { getAuthMidlleware, getUserController, getUserValidator } from '../utils/class_factory'
 
 const userRouter = Router()
+const isProd = process.env.IS_PROD == 'true'
 const userController = getUserController()
 const userValidator = getUserValidator()
 const authMiddleware = getAuthMidlleware()
 
-userRouter.post(
-    '/user',
-    (req, res, next) => userValidator.validateNewUser(req, res, next),
-    (req, res) => userController.createUser(req, res)
-)
+if(!isProd){
+    // Only release on PROD when image upload endpoint is ready
+    userRouter.post(
+        '/user',
+        (req, res, next) => userValidator.validateNewUser(req, res, next),
+        (req, res) => userController.createUser(req, res)
+    )
+}
 
 userRouter.get(
     '/user',

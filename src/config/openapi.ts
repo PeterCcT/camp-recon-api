@@ -99,6 +99,9 @@ export const config: OAS3Definition = {
                     'phone':{
                         'type': 'string'
                     },
+                    'token': {
+                        'type': 'string'
+                    },
                     'links': {
                         'type': 'array',
                         'items': {
@@ -334,13 +337,6 @@ export const config: OAS3Definition = {
                     'schema': { 'type': 'string' },
                     'required': true,
                     'allowEmptyValue': false
-                }, {
-                    'name': 'Authorization',
-                    'in': 'header',
-                    'schema': { 'type': 'string' },
-                    'required': true,
-                    'allowEmptyValue': false,
-                    'example': 'Bearer 123456'
                 }],
                 'description': 'Get user full info by id',
                 'responses': {
